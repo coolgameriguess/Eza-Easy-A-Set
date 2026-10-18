@@ -6,14 +6,19 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+  
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-
+  
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
     - uses: actions/checkout@v7
     - name: Rust Cache
@@ -51,7 +56,7 @@ jobs:
         archive: false
         if-no-files-found: error
     - name: Update Development Release
-      uses: andelf/nightly-release@main
+      uses: coolgameriguess/nightly-release@main
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:

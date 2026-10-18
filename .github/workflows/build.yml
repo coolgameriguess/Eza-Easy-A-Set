@@ -49,4 +49,15 @@ jobs:
         name: eza-windows
         path: eza-windows.zip  
         archive: false
-        if-no-files-found: error      
+        if-no-files-found: error
+    - name: Update Development Release
+      uses: andelf/nightly-release@main
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+      tag_name: nightly
+      name: 'Development Release'
+      body: |
+        Eza development release for commit ${{ github.sha }}.
+      files: |
+        ./eza-windows.zip
